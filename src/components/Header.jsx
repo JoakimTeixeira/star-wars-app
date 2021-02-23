@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 
 const Header = ({ title }) => {
   Header.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: string.isRequired,
   };
   return (
     <header>

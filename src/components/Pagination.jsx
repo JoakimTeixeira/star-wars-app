@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import { number, func } from 'prop-types';
 
 const Pagination = ({ currentPage, totalPeople, handlePagination }) => {
   Pagination.propTypes = {
-    currentPage: PropTypes.number.isRequired,
-    totalPeople: PropTypes.number.isRequired,
-    handlePagination: PropTypes.func.isRequired,
+    currentPage: number.isRequired,
+    totalPeople: number.isRequired,
+    handlePagination: func.isRequired,
   };
 
   const [pageNumbers, setPageNumbers] = useState([]);
@@ -30,20 +30,20 @@ const Pagination = ({ currentPage, totalPeople, handlePagination }) => {
     pageNumbers.length > 0 && (
       <footer className="mb-5">
         <ul className="pagination pagination-sm justify-content-center border-0">
-          {pageNumbers.map((number) => {
+          {pageNumbers.map((pageNumber) => {
             let pageClass = 'page-item ';
-            if (number === currentPage) {
+            if (pageNumber === currentPage) {
               pageClass += 'active';
             }
 
             return (
-              <li key={number} className={pageClass}>
+              <li key={pageNumber} className={pageClass}>
                 <a
                   href="/"
                   className="page-link"
-                  onClick={(event) => handlePagination(event, number)}
+                  onClick={(event) => handlePagination(event, pageNumber)}
                 >
-                  {number}
+                  {pageNumber}
                 </a>
               </li>
             );

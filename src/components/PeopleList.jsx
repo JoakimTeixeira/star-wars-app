@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { objectOf, oneOfType, arrayOf, string, object, array } from 'prop-types';
 
 const Person = ({ person }) => {
   Person.propTypes = {
-    person: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.array])).isRequired,
+    person: objectOf(oneOfType([string, array])).isRequired,
   };
 
   return (
@@ -18,7 +18,7 @@ const Person = ({ person }) => {
 
 const PeopleList = ({ people }) => {
   PeopleList.propTypes = {
-    people: PropTypes.arrayOf(PropTypes.object).isRequired,
+    people: arrayOf(object.isRequired).isRequired,
   };
 
   return people.map((person) => {
