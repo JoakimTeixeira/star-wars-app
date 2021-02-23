@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PeopleList from 'components/PeopleList';
+import { PeopleList, Pagination } from 'components';
 import { getPeople } from 'services/swapiAPI';
-import Pagination from 'components/Pagination';
 
 const Home = () => {
   const [people, setPeople] = useState([]);
