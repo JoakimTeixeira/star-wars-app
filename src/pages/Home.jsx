@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PeopleList from 'components/PeopleList';
-import { swapiAPI } from 'services/swapiAPI';
+import { getPeople } from 'services/swapiAPI';
 import Pagination from 'components/Pagination';
 
 const Home = () => {
@@ -10,14 +10,10 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await swapiAPI.get('people', {
-        params: {
-          page: currentPage,
-        },
-      });
+      const response = await getPeople(currentPage);
 
-      totalPeople.current = response.data.count;
-      setPeople(response.data.results);
+      totalPeople.current = response.count;
+      setPeople(response.results);
     };
 
     fetchData();
