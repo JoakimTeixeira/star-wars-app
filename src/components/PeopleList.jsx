@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Person = ({ person }) => {
   Person.propTypes = {
-    person: PropTypes.string.isRequired,
+    person: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.array])).isRequired,
   };
 
   return (
@@ -18,7 +18,7 @@ const Person = ({ person }) => {
 
 const PeopleList = ({ people }) => {
   PeopleList.propTypes = {
-    people: PropTypes.string.isRequired,
+    people: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   return people.map((person) => {
