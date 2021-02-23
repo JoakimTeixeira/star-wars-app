@@ -8,10 +8,8 @@ const Person = ({ person }) => {
 
   return (
     <section>
-      <div key={person.url}>
-        <div>{person.name}</div>
-        <div>{person.gender}</div>
-      </div>
+      <div>{person.name}</div>
+      <div>{person.gender}</div>
     </section>
   );
 };
@@ -22,7 +20,7 @@ const PeopleList = ({ people }) => {
   };
 
   return people.map((person) => {
-    return <Person person={person} />;
+    return <Person key={person.url} person={person} />;
   });
 };
 
