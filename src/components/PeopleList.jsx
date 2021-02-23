@@ -1,21 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const People = ({ people }) => {
-  People.propTypes = {
-    people: PropTypes.string.isRequired,
+const Person = ({ person }) => {
+  Person.propTypes = {
+    person: PropTypes.string.isRequired,
   };
 
   return (
     <section>
-      {people.map((person) => {
-        return (
-          <div key={person.url}>
-            <div>{person.name}</div>
-            <div>{person.gender}</div>
-          </div>
-        );
-      })}
+      <div key={person.url}>
+        <div>{person.name}</div>
+        <div>{person.gender}</div>
+      </div>
     </section>
   );
 };
@@ -25,7 +21,9 @@ const PeopleList = ({ people }) => {
     people: PropTypes.string.isRequired,
   };
 
-  return <People people={people} />;
+  return people.map((person) => {
+    return <Person person={person} />;
+  });
 };
 
 export default PeopleList;
