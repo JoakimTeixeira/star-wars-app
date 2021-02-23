@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Pagination = ({ currentPage, totalPeople, handlePagination }) => {
@@ -8,47 +8,49 @@ const Pagination = ({ currentPage, totalPeople, handlePagination }) => {
     handlePagination: PropTypes.func.isRequired,
   };
 
-  const pageNumbers = [];
-  const paginationLimit = 10;
+  const [pageNumbers, setPageNumbers] = useState([]);
+  const paginationLimit = useRef(10);
+  const totalPages = useRef(
+    useMemo(() => Math.ceil(totalPeople / paginationLimit.current), [totalPeople, paginationLimit])
+  );
 
-  const renderPagination = () => {
-    if (totalPeople > paginationLimit) {
-      for (let i = 1; i <= paginationLimit; i + 1) {
-        pageNumbers.push(i);
+  useEffect(() => {
+    const renderPagination = () => {
+      if (totalPages.current) {
+        for (let page = 1; page <= totalPages.current; page += 1) {
+          setPageNumbers((oldPageArray) => [...oldPageArray, page]);
+        }
       }
-    } else {
-      for (let i = 1; i <= totalPeople; i + 1) {
-        pageNumbers.push(i);
-      }
-    }
-  };
+    };
 
-  renderPagination();
+    renderPagination();
+  }, [totalPages, paginationLimit]);
 
   return (
-    <footer className="mb-5">
-      <ul className="pagination pagination-sm justify-content-center border-0">
-        {pageNumbers.map((number) => {
-          let pageClass = 'page-item ';
-          if (number === currentPage) {
-            pageClass += 'active';
-          }
+    pageNumbers.length > 0 && (
+      <footer className="mb-5">
+        <ul className="pagination pagination-sm justify-content-center border-0">
+          {pageNumbers.map((number) => {
+            let pageClass = 'page-item ';
+            if (number === currentPage) {
+              pageClass += 'active';
+            }
 
-          return (
-            <button
-              key={number}
-              onClick={() => handlePagination(number)}
-              className={pageClass}
-              type="button"
-            >
-              <a href="/" className="page-link">
-                {number}
-              </a>
-            </button>
-          );
-        })}
-      </ul>
-    </footer>
+            return (
+              <li key={number} className={pageClass}>
+                <a
+                  href="/"
+                  className="page-link"
+                  onClick={(event) => handlePagination(event, number)}
+                >
+                  {number}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </footer>
+    )
   );
 };
 

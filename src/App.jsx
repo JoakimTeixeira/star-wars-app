@@ -24,15 +24,14 @@ function App() {
     fetchData();
   }, [currentPage]);
 
-  const handlePagination = (number) => {
+  const handlePagination = (event, number) => {
+    event.preventDefault();
     setCurrentPage(number);
   };
 
-  // console.log(handlePagination);
-
   return (
     <>
-      <Header />
+      <Header title="Star Wars" />
       <PeopleList people={people} />
 
       {people.length > 0 && (
